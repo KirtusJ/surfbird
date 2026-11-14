@@ -46,6 +46,8 @@ Use the revision from your own read. A client can omit the revision to act on wh
 
 Surfbird keeps up to 24 history entries and follows up to six HTTP redirects per navigation. Its document reader accepts up to 2 MiB per response and reports clipping for display limits. Closing the browser discards session history.
 
+The machine client allows up to 16 MiB per reply, including its final newline, and 120 seconds from sending the command to receiving that newline. It exits with an error if a reply is incomplete, too large or late. A timeout can occur while the browser is still processing a command. Reconnect and read the current state before retrying a navigation.
+
 ## Verify
 
 ```sh

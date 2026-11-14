@@ -156,6 +156,10 @@ pub(crate) fn web_url(raw: &str) -> Result<Url, String> {
         return Err("Address exceeds 8192 bytes".into());
     }
     let u = Url::parse(raw).map_err(|_| "Enter a full HTTP or HTTPS URL")?;
+    // Percent encoding can expand even an input that passed the raw limit.
+    if u.as_str().len() > 8192 {
+        return Err("Canonical address exceeds 8192 bytes".into());
+    }
     if !matches!(u.scheme(), "http" | "https")
         || !u.has_host()
         || !u.username().is_empty()
@@ -238,5 +242,6 @@ mod tests {
         assert_eq!(crate::document::clean("x\x1b[31m\u{202e}y"), "x[31my");
         assert!(web_url("file:///a").is_err());
         assert!(web_url("https://user:pw@site.test/").is_err());
+        assert!(web_url(&format!("https://example.org/{}", "é".repeat(1600))).is_err());
     }
 }
