@@ -4,6 +4,8 @@
 
 Surfbird is a hosted Rust reader browser for people and machines. Open a page in the terminal and an attached program can read it, follow its links or take you back. Both controls use one page, link list and history in memory.
 
+This repository is the canonical source for the hosted reader. Submit hosted browser changes here. PCP-OS maintains the bare-metal guest, kernel networking, and QEMU replay, and carries a pinned hosted reader alongside them for integration checks. [Native PCP integration](https://github.com/KirtusJ/pcp-os/tree/master/apps/surfbird/guest)
+
 This preview reads HTTP(S) HTML and plain text through the host operating system. It extracts text and links from HTML5 markup. CSS layout, JavaScript, forms, graphical rendering, extensions and a native PCP kernel build are outside this version. Pages that depend on styling or scripting can show different or incomplete content. Fragment URLs are retained in history. The reader currently opens them at the top of the document.
 
 ## Run
@@ -62,3 +64,9 @@ The opt-in HTTPS test opens the Rust Book and follows its Installation link, fir
 ## Implementation
 
 The Rust session owner serializes navigation and commits a fetched document only on success. The loopback service and terminal submit commands to that owner. HTML parsing uses `scraper` and `html5ever`; URL resolution uses the `url` crate. The reader processes visible HTML text in document order and does not evaluate scripts. HTTP and HTTPS transport uses `ureq` and its default rustls backend. [scraper](https://docs.rs/scraper/) · [URL Standard](https://url.spec.whatwg.org/) · [ureq](https://docs.rs/ureq/)
+
+## Origin and rights
+
+The two original hosted-reader commits were extracted from the PCP-OS history with their authors and messages preserved. The initial code, tests, Cargo manifest, lockfile and mascot match the hosted files at the verified PCP-OS #106 baseline. [Initial hosted work](https://github.com/KirtusJ/pcp-os/pull/105) · [Baseline commit](https://github.com/KirtusJ/pcp-os/commit/bc4969503b2e8ac407311c535754a1fb93ab071f)
+
+Proprietary. All rights reserved. Copyright © 2026 Kirtus Justus. Dependency licenses are recorded by their respective packages. [Upstream rights notice](https://github.com/KirtusJ/pcp-os/blob/bc4969503b2e8ac407311c535754a1fb93ab071f/README.md#rights)
