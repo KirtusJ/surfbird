@@ -1,0 +1,15 @@
+[package]
+name = "surfbird"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.91"
+publish = false
+description = "A shared human and machine HTML reader browser"
+
+[dependencies]
+ego-tree = "0.10"
+scraper = "0.24"
+ureq = { version = "3.1", features = ["charset"] }
+url = "2.5"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

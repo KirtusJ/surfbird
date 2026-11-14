@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 144" width="192" height="144" role="img" aria-labelledby="title desc">
+  <title id="title">Surfbird</title>
+  <desc id="desc">A silver parrot leans into a cyan wave on a long surfboard.</desc>
+  <rect width="192" height="144" rx="24" fill="#102630"/>
+  <path d="M8 115q28-45 58-32-18 1-22 12 10 11 29 8 45-9 102-20-18 25-60 31-43 6-71-2-24-7-36 3z" fill="#087f91"/>
+  <path d="M9 112q27-43 58-29-21-2-30 14-6 11-28 15z" fill="#53e5e4"/>
+  <path d="M38 105q34-2 90-13 21-4 31-12-3 18-35 23-56 10-86 2z" fill="#d0e3e8"/>
+  <path d="M41 106q60 2 114-21-18 16-48 19-40 6-66 2z" fill="#3acabf"/>
+  <g stroke="#132f3b" stroke-width="2.5" stroke-linejoin="round">
+    <path d="m91 75 4 13-10 6m23-21 5 12 7 1" fill="none" stroke="#dbe9ed" stroke-linecap="round"/>
+    <path d="m82 64-26 22 20-2-16 10q23-7 39-23" fill="#75a6b0"/>
+    <path d="M77 72q8-13 19-25 4-20 19-23 17-4 24 14l-9 12q-1 21-22 30-18 5-31-8z" fill="#d3dee3"/>
+    <path d="M99 43q3-17 18-19 11-1 18 8-20-2-28 13z" fill="#69d9db"/>
+    <path d="M136 33q15 5 10 19-1-9-13-9 0-6 3-10z" fill="#869da5"/>
+    <path d="M111 54q-13 23-42 22 13-12 20-24 10-14 22 2z" fill="#36b9bf"/>
+  </g>
+  <circle cx="125" cy="36" r="2.6" fill="#122e39"/>
+  <path d="M25 123q18-8 39-4m34 4 27-5m22-9 16-5" fill="none" stroke="#5ccdd2" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
