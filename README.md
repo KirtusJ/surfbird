@@ -2,9 +2,15 @@
 
 <img align="right" src="surfbird.svg" alt="Silver parrot riding a cyan surfboard" width="120">
 
-Surfbird is a hosted Rust reader browser for people and machines. Open a page in the terminal and an attached program can read it, follow its links or take you back. Both controls use one page, link list and history in memory.
+Surfbird has a hosted terminal reader and a graphical guest that runs inside PCP-OS. The two implementations have separate source trees.
 
-This repository is the canonical source for the hosted reader. Submit hosted browser changes here. PCP-OS maintains the bare-metal guest, kernel networking, and QEMU replay, and carries a pinned hosted reader alongside them for integration checks. [Native PCP integration](https://github.com/KirtusJ/pcp-os/tree/master/apps/surfbird/guest)
+| What you want to run or change | Where it lives |
+| --- | --- |
+| **Hosted reader.** Open HTTP(S) pages in a terminal. A program can use the local JSON API to read the same page, follow links and share its history. | This repository owns the [Rust source](src/) and [tests](tests/). Submit hosted changes here. |
+| **Native graphical guest.** Read a fixture page on the PCP-OS display. Press `1` or `2` to follow a link and `B` to go back. | PCP-OS owns the [guest source, controls and replay instructions](https://github.com/KirtusJ/pcp-os/tree/master/apps/surfbird/guest). |
+| **Native networking and integration.** Inspect guest DNS and TCP traffic, kernel device access or a QEMU run. | See the [DNS captures](https://github.com/KirtusJ/pcp-os/blob/master/apps/surfbird/guest/DNS.md), [TCP replay](https://github.com/KirtusJ/pcp-os/blob/master/apps/surfbird/guest/TCP.md) and [pinned hosted snapshot](https://github.com/KirtusJ/pcp-os/tree/master/apps/surfbird). |
+
+The commands below run the hosted reader. Its human interface is the terminal.
 
 This preview reads HTTP(S) HTML and plain text through the host operating system. It extracts text and links from HTML5 markup. CSS layout, JavaScript, forms, graphical rendering, extensions and a native PCP kernel build are outside this version. Pages that depend on styling or scripting can show different or incomplete content. Fragment URLs are retained in history. The reader currently opens them at the top of the document.
 
