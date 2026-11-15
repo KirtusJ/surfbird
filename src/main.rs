@@ -3,6 +3,8 @@ mod cli;
 mod document;
 mod human;
 mod session;
+#[cfg(all(windows, feature = "window"))]
+mod window;
 
 fn main() -> std::process::ExitCode {
     match cli::run() {
