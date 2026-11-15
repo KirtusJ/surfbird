@@ -6,6 +6,9 @@ rust-version = "1.91"
 publish = false
 description = "A shared human and machine HTML reader browser"
 
+[features]
+window = ["dep:tao", "dep:wry", "dep:webview2-com"]
+
 [dependencies]
 ego-tree = "0.10"
 scraper = "0.24"
@@ -13,3 +16,8 @@ ureq = { version = "3.1", features = ["charset"] }
 url = "2.5"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+
+[target.'cfg(windows)'.dependencies]
+tao = { version = "0.37", optional = true, default-features = false, features = ["rwh_06"] }
+webview2-com = { version = "0.39", optional = true }
+wry = { version = "0.57", optional = true, default-features = false, features = ["os-webview"] }

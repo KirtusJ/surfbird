@@ -73,8 +73,19 @@ fn read_reply(reader: &mut io::BufReader<TcpStream>, timeout: Duration) -> io::R
 pub fn run() -> Result<(), String> {
     let args: Vec<String> = env::args().skip(1).collect();
     if matches!(args.first().map(String::as_str), Some("--help" | "-h")) {
-        println!("surfbird [--listen 127.0.0.1:PORT] [URL]\nsurfbird --machine 127.0.0.1:PORT\nThe machine client reads one JSON command per line and prints its response.");
+        println!("surfbird [--listen 127.0.0.1:PORT] [URL]\nsurfbird --machine 127.0.0.1:PORT\nsurfbird --window URL (Windows)\nThe machine client reads one JSON command per line and prints its response.");
         return Ok(());
+    }
+    if args.first().is_some_and(|v| v == "--window") {
+        if args.len() != 2 {
+            return Err("Pass one HTTP(S) address after --window".into());
+        }
+        #[cfg(all(windows, feature = "window"))]
+        return crate::window::open(&args[1]);
+        #[cfg(not(windows))]
+        return Err("The graphical window requires Windows and WebView2".into());
+        #[cfg(all(windows, not(feature = "window")))]
+        return Err("Build the graphical reader with cargo build --locked --features window".into());
     }
     if args.first().is_some_and(|v| v == "--machine") {
         if args.len() != 2 {

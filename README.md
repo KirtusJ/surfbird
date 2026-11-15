@@ -2,19 +2,30 @@
 
 <img align="right" src="surfbird.svg" alt="Silver parrot riding a cyan surfboard" width="120">
 
-Surfbird has a hosted terminal reader and a graphical guest that runs inside PCP-OS. The two implementations have separate source trees.
+Surfbird runs as a hosted terminal reader, an optional Windows browser window, and a separate graphical guest inside PCP-OS.
 
 | What you want to run or change | Where it lives |
 | --- | --- |
 | **Hosted reader.** Open HTTP(S) pages in a terminal. A program can use the local JSON API to read the same page, follow links and share its history. | This repository owns the [Rust source](src/) and [tests](tests/). Submit hosted changes here. |
+| **Windows browser window.** Navigate websites and play video with their own controls in a Surfbird window. | This repository owns the [WebView2 host](src/window.rs). See [Run the Windows window](#run-the-windows-window). |
 | **Native graphical guest.** Read a fixture page on the PCP-OS display. Press `1` or `2` to follow a link and `B` to go back. | PCP-OS owns the [guest source, controls and replay instructions](https://github.com/KirtusJ/pcp-os/tree/master/apps/surfbird/guest). |
 | **Native networking and integration.** Inspect guest DNS and TCP traffic, kernel device access or a QEMU run. | See the [DNS captures](https://github.com/KirtusJ/pcp-os/blob/master/apps/surfbird/guest/DNS.md), [TCP replay](https://github.com/KirtusJ/pcp-os/blob/master/apps/surfbird/guest/TCP.md) and [pinned hosted snapshot](https://github.com/KirtusJ/pcp-os/tree/master/apps/surfbird). |
 
-The commands below run the hosted reader. Its human interface is the terminal.
+## Run the Windows window
 
-This preview reads HTTP(S) HTML and plain text through the host operating system. It extracts text and links from HTML5 markup. CSS layout, JavaScript, forms, graphical rendering, extensions and a native PCP kernel build are outside this version. Pages that depend on styling or scripting can show different or incomplete content. Fragment URLs are retained in history. The reader currently opens them at the top of the document.
+Build with Rust 1.91 or newer on Windows and the [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/). Open a YouTube watch page directly, then press Play in the page's player.
+
+```sh
+cargo run --locked --features window -- --window "https://www.youtube.com/watch?v=jNQXAC9IVRw"
+```
+
+Use the address bar, Back, Forward and Reload to navigate in the same window. WebView2 renders the page, runs its JavaScript and media, and supports keyboard zoom. The browser displays the committed address when a site changes location, including navigation within a single-page app. The engine stores its profile in `%LOCALAPPDATA%\Surfbird\WebView2`. This mode blocks popup windows and file downloads. The terminal's machine API controls the terminal session.
+
+The standard Windows MSVC build statically links Microsoft's WebView2 loader. When distributing a Windows GNU build, place the matching architecture's `WebView2Loader.dll` next to the executable. The locked `webview2-com-sys` build supplies it under Cargo's `build/webview2-com-sys-*/out/<architecture>/` directory for that build profile. [Microsoft's distribution guide](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution)
 
 ## Run
+
+The terminal reader extracts text and links from HTTP(S) HTML5 pages. It reads plain text as well. Pages that depend on layout or scripting can show incomplete content in this mode. Fragment URLs are retained in history and open at the top of the document.
 
 From this directory with Rust 1.91 or newer, run:
 
