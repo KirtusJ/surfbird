@@ -3,6 +3,7 @@
 <img align="right" src="surfbird.svg" alt="Silver parrot riding a cyan surfboard" width="120">
 
 Surfbird runs as a hosted terminal reader, an optional Windows browser window, and a separate graphical guest inside PCP-OS.
+The [catalogue](CATALOG.md) says what each entry in this repository is.
 
 | What you want to run or change | Where it lives |
 | --- | --- |
